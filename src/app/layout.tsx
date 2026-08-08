@@ -3,8 +3,18 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
-  title: "Video Hub",
-  description: "Placeholder",
+  title: "Meus vídeos | Video Hub",
+  description: "Vídeos editados por mim, com links pro TikTok e GitHub.",
+  openGraph: {
+    title: "Meus vídeos",
+    description: "Vídeos editados por mim, com links pro TikTok e GitHub.",
+    type: "website",
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Meus vídeos",
+    description: "Vídeos editados por mim, com links pro TikTok e GitHub.",
+  },
 };
 
 export default function RootLayout({
