@@ -42,16 +42,14 @@ demonstrating real auth, CRUD, and data security (RLS), not a business-model Saa
   `@upstash/ratelimit`), NOT an in-memory counter — Vercel serverless functions are
   stateless across invocations/regions, so in-memory rate limiting silently fails to
   protect against real distributed abuse (false sense of security).
-- UI/design system — proposed, awaiting user confirmation: shadcn/ui (Tailwind +
-  Radix-based components) to avoid an amateur-looking UI without needing a dedicated
-  design skill (none is currently installed — dataviz/artifact-design don't apply to
-  a real app's front-end). User was asked whether to also search for an actual
-  frontend-design skill/plugin, or proceed with shadcn/ui — **answer pending**.
+- UI/design system — **approved**: shadcn/ui (Tailwind + Radix-based components) to
+  avoid an amateur-looking UI without needing a dedicated design skill (none is
+  installed — dataviz/artifact-design don't apply to a real app's front-end). User
+  chose to proceed directly rather than search for a dedicated design skill/plugin.
 
 ## Not yet decided / next steps when resuming
 
-1. Confirm shadcn/ui vs searching for a dedicated frontend-design skill first
-2. Full RLS policy design (table schema, policies) — not yet drafted
+1. Full RLS policy design (table schema, policies) — not yet drafted
 3. Folder structure for this project (parallel to the one drafted for Tetris, adapted
    for Next.js App Router conventions)
 4. Testing strategy (framework choice — likely Vitest + React Testing Library +
