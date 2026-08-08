@@ -1,4 +1,4 @@
-import { TIKTOK_HANDLE } from "@/lib/config";
+import { tiktokVideoUrl } from "@/lib/config";
 import { type Video } from "@/data/videos";
 
 type VideoCardProps = {
@@ -6,7 +6,7 @@ type VideoCardProps = {
 };
 
 export function VideoCard({ video }: VideoCardProps) {
-  const videoUrl = `https://www.tiktok.com/${TIKTOK_HANDLE}/video/${video.id}`;
+  const videoUrl = tiktokVideoUrl(video.id);
 
   return (
     <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">

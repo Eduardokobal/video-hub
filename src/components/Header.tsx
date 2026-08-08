@@ -1,11 +1,11 @@
-import { TIKTOK_HANDLE, GITHUB_URL } from "@/lib/config";
+import { TIKTOK_HANDLE, GITHUB_URL, tiktokProfileUrl } from "@/lib/config";
 
 export function Header() {
-  const tiktokUrl = `https://www.tiktok.com/${TIKTOK_HANDLE}`;
+  const tiktokUrl = tiktokProfileUrl();
 
   return (
     <header className="flex items-center justify-between border-b border-neutral-200 p-6 dark:border-neutral-800">
-      <span className="text-lg font-bold">{TIKTOK_HANDLE}</span>
+      <h1 className="text-lg font-bold">{TIKTOK_HANDLE}</h1>
       <nav className="flex gap-4">
         <a
           href={tiktokUrl}
