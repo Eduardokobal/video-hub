@@ -1,5 +1,4 @@
 import type { Metadata } from "next";
-import Script from "next/script";
 import "./globals.css";
 
 // title/description below are placeholders — replace before deploying.
@@ -31,10 +30,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>
-        {children}
-        <Script src="https://www.tiktok.com/embed.js" strategy="lazyOnload" />
-      </body>
+      <body>{children}</body>
     </html>
   );
 }

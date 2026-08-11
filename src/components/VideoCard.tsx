@@ -9,19 +9,26 @@ export function VideoCard({ video }: VideoCardProps) {
   const videoUrl = tiktokVideoUrl(video.id);
 
   return (
-    <div className="overflow-hidden rounded-lg border border-purple-900 bg-purple-950">
-      <blockquote
-        className="tiktok-embed"
-        cite={videoUrl}
-        data-video-id={video.id}
-        style={{ maxWidth: "605px", minWidth: "325px" }}
+    <div className="w-full">
+      <div className="aspect-video overflow-hidden rounded-xl border border-purple-900 bg-purple-950 shadow-lg shadow-purple-950/50">
+        <video
+          src={video.src}
+          controls
+          playsInline
+          preload="metadata"
+          className="h-full w-full object-cover"
+        >
+          Seu navegador não suporta vídeo em HTML5.
+        </video>
+      </div>
+      <a
+        href={videoUrl}
+        target="_blank"
+        rel="noreferrer"
+        className="mt-3 block text-center text-base font-medium text-purple-300 transition-colors hover:text-purple-100"
       >
-        <section>
-          <a target="_blank" title={video.title} href={videoUrl} rel="noreferrer">
-            {video.title}
-          </a>
-        </section>
-      </blockquote>
+        {video.title}
+      </a>
     </div>
   );
 }
