@@ -1,7 +1,12 @@
-// Replace with your real TikTok handle (including the @) before deploying.
-export const TIKTOK_HANDLE = "@replace_with_your_handle";
-// Replace with your real GitHub profile URL before deploying.
-export const GITHUB_URL = "https://github.com/replace-with-your-username";
+// Set via env vars, not hardcoded — see .env.example. Copy it to
+// .env.local (gitignored) with your real values for local dev, and add
+// the same two vars in your Vercel project settings for deploys. The
+// fallbacks below only apply if the env vars are unset (e.g. a fresh
+// clone before .env.local is created).
+export const TIKTOK_HANDLE = process.env.TIKTOK_HANDLE ?? "@your_handle";
+export const GITHUB_URL = process.env.GITHUB_URL ?? "https://github.com/your-username";
+export const ABOUT_BIO =
+  process.env.ABOUT_BIO ?? "Aqui fica uma breve história sobre você.";
 
 export function tiktokProfileUrl(): string {
   const handle = TIKTOK_HANDLE.startsWith("@") ? TIKTOK_HANDLE : `@${TIKTOK_HANDLE}`;

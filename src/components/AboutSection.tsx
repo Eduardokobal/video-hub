@@ -1,3 +1,4 @@
+import { ABOUT_BIO } from "@/lib/config";
 import { Card, CardHeader, CardTitle, CardContent } from "@/components/ui/card";
 
 export function AboutSection() {
@@ -7,11 +8,7 @@ export function AboutSection() {
         <CardTitle>Sobre mim</CardTitle>
       </CardHeader>
       <CardContent>
-        {/* Placeholder bio — replace with your own before deploying. */}
-        <p className="text-neutral-600 dark:text-neutral-400">
-          Edito vídeos e desenvolvo software. Aqui você encontra meus vídeos
-          e um link pro meu trabalho como dev.
-        </p>
+        <p className="text-purple-300">{ABOUT_BIO}</p>
       </CardContent>
     </Card>
   );

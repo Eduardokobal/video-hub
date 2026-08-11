@@ -9,7 +9,7 @@ export function VideoCard({ video }: VideoCardProps) {
   const videoUrl = tiktokVideoUrl(video.id);
 
   return (
-    <div className="overflow-hidden rounded-lg border border-neutral-200 bg-white dark:border-neutral-800 dark:bg-neutral-950">
+    <div className="overflow-hidden rounded-lg border border-purple-900 bg-purple-950">
       <blockquote
         className="tiktok-embed"
         cite={videoUrl}

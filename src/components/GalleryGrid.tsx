@@ -6,7 +6,7 @@ export function GalleryGrid() {
   const sorted = sortVideosByDateDesc(videos);
 
   if (sorted.length === 0) {
-    return <p className="text-neutral-500 dark:text-neutral-400">Nenhum vídeo ainda.</p>;
+    return <p className="text-purple-300">Nenhum vídeo ainda.</p>;
   }
 
   return (
