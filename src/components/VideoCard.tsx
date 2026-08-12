@@ -14,6 +14,7 @@ export function VideoCard({ video }: VideoCardProps) {
         <video
           src={video.src}
           controls
+          controlsList="nodownload"
           playsInline
           preload="metadata"
           className="h-full w-full object-cover"
