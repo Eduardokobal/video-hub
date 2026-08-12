@@ -3,5 +3,8 @@
 @tailwind utilities;
 
 body {
-  @apply bg-black text-neutral-100;
+  @apply text-neutral-100;
+  background-color: #000000;
+  background-image: radial-gradient(ellipse 80% 60% at 50% 0%, #1a0b2e 0%, #000000 70%);
+  background-attachment: fixed;
 }

@@ -1,7 +1,7 @@
 import { Header } from "@/components/Header";
 import { AboutSection } from "@/components/AboutSection";
 import { GalleryGrid } from "@/components/GalleryGrid";
-import { SocialLinks } from "@/components/SocialLinks";
+import { EditComparisonSection } from "@/components/EditComparisonSection";
 
 export default function Home() {
   return (
@@ -10,11 +10,9 @@ export default function Home() {
       <main className="mx-auto max-w-5xl space-y-12 px-6 py-10">
         <AboutSection />
         <GalleryGrid />
-        {/* Reserved space — decide later what goes here before the social links. */}
-        <div className="pt-24">
-          <SocialLinks />
-        </div>
+        <EditComparisonSection />
       </main>
+      <div className="border-t-4 border-purple-800" />
     </>
   );
 }

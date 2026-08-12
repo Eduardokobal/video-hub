@@ -23,6 +23,11 @@ yarn-error.log*
 # vercel
 .vercel
 
+# local tool settings (contains local machine paths — belt-and-suspenders on
+# top of the global gitignore, so a future git add -A on any machine can't
+# accidentally commit it)
+.claude/*.local.json
+
 # typescript
 *.tsbuildinfo
 next-env.d.ts

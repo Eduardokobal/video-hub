@@ -717,6 +717,14 @@ git commit -m "feat: assemble home page and add Open Graph metadata"
 Run: `gh repo create video-hub --public --source=. --remote=origin`
 Expected: creates a public repo named `video-hub` under the authenticated GitHub account and adds it as the `origin` remote
 
+> **Post-execution note (2026-08-11):** the repo was created public as this step
+> specifies, then later switched to **private** once the project pivoted to
+> committing real video files (self-hosted `<video>`, see the design spec's
+> "Superseded" section) — the user preferred not to have that content public
+> regardless of it not being identity data. If resuming/adapting this plan for
+> a fresh clone, create the repo private from the start if you intend to
+> self-host real video/photo assets.
+
 - [ ] **Step 2: Push the existing commit history**
 
 Run: `git push -u origin master`

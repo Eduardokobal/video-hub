@@ -1,4 +1,5 @@
 import { tiktokVideoUrl } from "@/lib/config";
+import { cn, cardSurfaceClasses } from "@/lib/utils";
 import { type Video } from "@/data/videos";
 
 type VideoCardProps = {
@@ -10,7 +11,7 @@ export function VideoCard({ video }: VideoCardProps) {
 
   return (
     <div className="w-full">
-      <div className="aspect-video overflow-hidden rounded-xl border border-purple-900 bg-purple-950 shadow-lg shadow-purple-950/50">
+      <div className={cn("aspect-video", cardSurfaceClasses)}>
         <video
           src={video.src}
           controls

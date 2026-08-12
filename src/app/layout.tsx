@@ -1,14 +1,27 @@
 import type { Metadata } from "next";
+import { Inter } from "next/font/google";
+import { FULL_NAME } from "@/lib/config";
 import "./globals.css";
 
-// title/description below are placeholders — replace before deploying.
+const inter = Inter({ subsets: ["latin"], display: "swap" });
+
+const pageTitle = `${FULL_NAME} | Hub Portfólio`;
+const pageDescription = `Portfólio de vídeos de ${FULL_NAME}, com links pro TikTok e GitHub.`;
+
+// Vercel injects VERCEL_URL automatically at build time (e.g. "my-app.vercel.app",
+// no protocol) — using it means metadataBase is always correct on deploy without
+// manual configuration. Falls back to localhost for local dev/build.
+const siteUrl = process.env.VERCEL_URL
+  ? `https://${process.env.VERCEL_URL}`
+  : "http://localhost:3000";
+
 export const metadata: Metadata = {
-  metadataBase: new URL("https://replace-with-your-vercel-url.vercel.app"), // Replace with your real deployed URL before/after first deploy.
-  title: "Meus vídeos | Video Hub",
-  description: "Vídeos editados por mim, com links pro TikTok e GitHub.",
+  metadataBase: new URL(siteUrl),
+  title: pageTitle,
+  description: pageDescription,
   openGraph: {
-    title: "Meus vídeos",
-    description: "Vídeos editados por mim, com links pro TikTok e GitHub.",
+    title: pageTitle,
+    description: pageDescription,
     type: "website",
     url: "/",
     locale: "pt_BR",
@@ -18,8 +31,8 @@ export const metadata: Metadata = {
     // switch this back to "summary_large_image" + add `images: ["/og-image.png"]`
     // to both `openGraph` and `twitter` once you have one.
     card: "summary",
-    title: "Meus vídeos",
-    description: "Vídeos editados por mim, com links pro TikTok e GitHub.",
+    title: pageTitle,
+    description: pageDescription,
   },
 };
 
@@ -30,7 +43,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
-      <body>{children}</body>
+      <body className={inter.className}>{children}</body>
     </html>
   );
 }

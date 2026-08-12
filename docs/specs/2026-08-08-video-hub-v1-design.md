@@ -114,3 +114,64 @@ justify real test coverage). Validated manually by running the site.
 
 See project memory `project_workflow_conventions` and `project_portfolio_roadmap` for
 the full agreement and how this project fits the broader plan.
+
+## Superseded / v1.1 changes (2026-08-11 – 2026-08-12)
+
+This section documents decisions above that changed after real-world use. The
+sections above are left as historical record of the original reasoning, not
+rewritten — this is the current source of truth where it conflicts with them.
+
+**Video embedding — reversed.** The "Video embedding" decision above (TikTok's
+official embed widget) was abandoned after actually seeing it rendered: the
+widget forces its own white background, unstylable from our side (cross-origin
+iframe — no CSS/JS access, and TikTok's embed has no dark-theme parameter), and
+a "click-through card" alternative (no iframe, but no inline playback either)
+turned out to sacrifice the thing that mattered most: the video actually
+playing on the page. **Current approach: self-hosted `<video>` elements**,
+sourced from `public/videos/*.mp4` (the user's own video files, downloaded
+from their own TikTok posts). This required also reversing the repo-visibility
+assumption below.
+
+**Repo visibility — now private.** The plan's Task 8 (`gh repo create --public`)
+reflected the original assumption that the repo would stay a fully public,
+identity-free template. Once real video files needed to be committed (see
+above — Vercel builds from git, so self-hosted playback requires the actual
+`.mp4` files in the repo), the user changed the GitHub repo to **private**
+instead of pursuing external video hosting — video content isn't identity
+data the way handle/bio/name are, so it doesn't need the same `.env.local`
+treatment, but the user preferred not to have it on a public repo regardless.
+The `Video` type also gained a required `src` field (path to the local file)
+not present in the original schema above.
+
+**Content additions beyond original scope:**
+- **Avatar photo** (`public/avatar.jpg`) in the About section, replacing the
+  original text-only "About me" card.
+- **`FULL_NAME` env var** — the About card's title is now the user's real name
+  (env-driven, same pattern as `TIKTOK_HANDLE`/`GITHUB_URL`), not a static
+  "Sobre mim" label.
+- **Edit-comparison section** (`EditComparisonSection.tsx` /
+  `editComparisons.ts`): two YouTube thumbnails ("com edição" / "sem edição")
+  demonstrating the user's editing skill by contrast, linking out to YouTube.
+  Thumbnails via YouTube's public `img.youtube.com/vi/<id>/hqdefault.jpg`
+  convention — no API key needed.
+- **Page branding**: title/OG copy changed from generic "Meus vídeos | Video
+  Hub" to `"<name> | Hub Portfólio"`, framing the site explicitly as a
+  portfolio rather than a generic video gallery.
+
+**Visual design pass** (not itself a spec-level decision, noted for
+completeness): dark/purple theme (was originally unspecified beyond "shadcn/ui
+for polish"), custom Inter font, radial background gradient, hover glow/lift
+on cards, mobile-responsive header, SVG favicon (a circle+"H" mark).
+
+**Security hardening added after a full-codebase review (2026-08-12):**
+- `metadataBase` now derives from Vercel's auto-injected `VERCEL_URL` env var
+  instead of a manually-maintained placeholder — self-corrects on every
+  deploy instead of risking a stale/unclaimed URL in shipped `og:url` tags.
+- `X-Frame-Options: SAMEORIGIN` header added via `next.config.mjs` (cheap,
+  the one header judged to have real value for a static site with no
+  auth/forms/cookies — protects against the page being iframed elsewhere).
+- `.claude/*.local.json` added to the repo's own `.gitignore` (was previously
+  relying solely on the global gitignore, a gap on any other machine/clone).
+- Confirmed via full git history search: `.env.local` was never committed in
+  any commit, and no identity data (name/handle/bio) leaked into source or
+  docs outside of it.
