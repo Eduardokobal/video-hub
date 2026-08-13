@@ -8,12 +8,17 @@ const inter = Inter({ subsets: ["latin"], display: "swap" });
 const pageTitle = `${FULL_NAME} | Hub Portfólio`;
 const pageDescription = `Portfólio de vídeos de ${FULL_NAME}, com links pro TikTok e GitHub.`;
 
-// Vercel injects VERCEL_URL automatically at build time (e.g. "my-app.vercel.app",
-// no protocol) — using it means metadataBase is always correct on deploy without
-// manual configuration. Falls back to localhost for local dev/build.
-const siteUrl = process.env.VERCEL_URL
-  ? `https://${process.env.VERCEL_URL}`
-  : "http://localhost:3000";
+// Vercel injects these automatically at build time — no manual configuration
+// needed. VERCEL_PROJECT_PRODUCTION_URL is the assigned production domain
+// (e.g. a renamed *.vercel.app or a custom domain) and is what we want here;
+// VERCEL_URL is the current *deployment's* own URL (a per-build hash), which
+// would make metadataBase point at a throwaway deployment URL instead of the
+// real production one. Falls back to localhost for local dev/build.
+const siteUrl = process.env.VERCEL_PROJECT_PRODUCTION_URL
+  ? `https://${process.env.VERCEL_PROJECT_PRODUCTION_URL}`
+  : process.env.VERCEL_URL
+    ? `https://${process.env.VERCEL_URL}`
+    : "http://localhost:3000";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
