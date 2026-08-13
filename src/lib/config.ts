@@ -14,6 +14,10 @@ export const GITHUB_URL = process.env.GITHUB_URL ?? "https://github.com/your-use
 export const FULL_NAME = process.env.FULL_NAME ?? "Seu Nome";
 export const ABOUT_BIO =
   process.env.ABOUT_BIO ?? "Aqui fica uma breve história sobre você.";
+// Empty by default — AboutSection falls back to an initial-letter placeholder
+// when this isn't set. Point it at a hosted image (e.g. Vercel Blob) rather
+// than committing a personal photo, to keep this repo template-generic.
+export const AVATAR_URL = process.env.AVATAR_URL ?? "";
 
 export function tiktokProfileUrl(): string {
   const handle = TIKTOK_HANDLE.startsWith("@") ? TIKTOK_HANDLE : `@${TIKTOK_HANDLE}`;

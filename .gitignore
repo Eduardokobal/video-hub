@@ -31,3 +31,9 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# personal media — hosted on Vercel Blob instead (see scripts/upload-to-blob.mjs),
+# keeps this repo free of personal content now that it's public. Files stay
+# on disk locally, just untracked.
+/public/videos/
+/public/avatar.jpg
