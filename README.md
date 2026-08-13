@@ -68,6 +68,23 @@ Edit `src/data/editComparisons.ts` — each entry is a YouTube video ID and a
 label (e.g. "Com edição" / "Sem edição"). Thumbnails are fetched from
 YouTube's public `img.youtube.com` thumbnail URLs, no API key needed.
 
+### Hosting your videos/avatar
+
+Video and avatar files aren't committed to this repo (keeps it free of
+personal media). Instead:
+
+1. Put your `.mp4` files in `public/videos/` and your photo at
+   `public/avatar.jpg` locally (both gitignored)
+2. Create a Blob store (**access: Public**) in the Vercel dashboard's Storage
+   tab, and put the resulting token in `.env.local` as `BLOB_READ_WRITE_TOKEN`
+3. Run `node --env-file=.env.local scripts/upload-to-blob.mjs` — it uploads
+   everything and prints the URLs
+4. Paste the video URLs into `src/data/videos.ts` (`src` field) and the
+   avatar URL into `.env.local`/Vercel as `AVATAR_URL`
+
+`BLOB_READ_WRITE_TOKEN` is only needed to run the upload script locally —
+don't add it to Vercel's deployment environment variables.
+
 ## Project structure
 
 ```
@@ -85,8 +102,10 @@ src/
 ├── data/                    # videos.ts, editComparisons.ts
 └── lib/                     # config (env-driven), sort helper, YouTube URL helpers, class-merge utility
 public/
-├── videos/                  # your .mp4 files
-└── avatar.jpg
+├── videos/                  # your .mp4 files locally (gitignored — see "Hosting" above)
+└── avatar.jpg                # your photo locally (gitignored — see "Hosting" above)
+scripts/
+└── upload-to-blob.mjs       # uploads public/videos/ and avatar.jpg to Vercel Blob
 ```
 
 ## Why no test suite
@@ -96,3 +115,7 @@ This project is static content with no business logic — the only real logic
 `npm run build` (type-checking + compile) plus a manual check rather than a
 dedicated test suite. See `docs/specs/` for the original design rationale and
 its superseding notes for what changed since.
+
+## License
+
+[MIT](LICENSE) — use it, fork it, whitelabel it for your own portfolio.
