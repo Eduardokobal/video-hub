@@ -35,27 +35,34 @@ Open [http://localhost:3000](http://localhost:3000).
 
 ### Configuration
 
-Four environment variables control the identity shown on the site — copy
-`.env.example` to `.env.local` (gitignored) and set:
+Environment variables control the identity and content shown on the site —
+none of this is hardcoded in `src/`, so the repo stays generic even though
+it's public. Copy `.env.example` to `.env.local` (gitignored) and set:
 
-| Variable        | Description                                   |
-| --------------- | ---------------------------------------------- |
-| `TIKTOK_HANDLE` | Your TikTok handle, including the `@`           |
-| `GITHUB_URL`    | Your GitHub profile URL                         |
-| `FULL_NAME`     | Your name, shown as the About section's title   |
-| `ABOUT_BIO`     | Your bio text                                   |
+| Variable        | Description                                              |
+| --------------- | --------------------------------------------------------- |
+| `TIKTOK_HANDLE` | Your TikTok handle, including the `@`                      |
+| `GITHUB_URL`    | Your GitHub profile URL                                    |
+| `FULL_NAME`     | Your name, shown as the About section's title              |
+| `ABOUT_BIO`     | Your bio text                                               |
+| `AVATAR_URL`    | Optional — see "Hosting your videos/avatar" below           |
+| `VIDEOS_JSON`   | Your video gallery — see "Adding videos" below              |
 
-When deploying (e.g. on Vercel), set the same four variables in the project's
+When deploying (e.g. on Vercel), set the same variables in the project's
 environment settings — `.env.local` is never committed. These are read at
 build time in server components only; if any consumer ever becomes a client
 component, prefix the var with `NEXT_PUBLIC_` or it will render as `undefined`.
 
 ### Adding videos
 
-Edit `src/data/videos.ts` — each entry needs a `title`, a `publishedAt` date
-(used for sorting), the TikTok video's numeric `id` (found at the end of a
-TikTok video URL, used only for the "ver no TikTok" link below the player),
-and `src`: the path to the actual video file under `public/videos/`.
+Set `VIDEOS_JSON` (in `.env.local` / Vercel) to a single-line JSON array —
+each entry needs a `title`, a `publishedAt` date (used for sorting), the
+TikTok video's numeric `id` (found at the end of a TikTok video URL, used
+only for the "ver no TikTok" link below the player), and `src`: the hosted
+video file URL (see "Hosting" below). See `.env.example` for the exact shape.
+Without `VIDEOS_JSON` set, the site shows one generic placeholder entry —
+`src/data/videos.ts` itself should stay untouched, so this repo never ships
+anyone's specific videos by default.
 
 ### Avatar
 
@@ -79,8 +86,8 @@ personal media). Instead:
    tab, and put the resulting token in `.env.local` as `BLOB_READ_WRITE_TOKEN`
 3. Run `node --env-file=.env.local scripts/upload-to-blob.mjs` — it uploads
    everything and prints the URLs
-4. Paste the video URLs into `src/data/videos.ts` (`src` field) and the
-   avatar URL into `.env.local`/Vercel as `AVATAR_URL`
+4. Paste the video URLs into `VIDEOS_JSON`'s `src` fields and the avatar URL
+   into `AVATAR_URL` — both in `.env.local`/Vercel, not in the code
 
 `BLOB_READ_WRITE_TOKEN` is only needed to run the upload script locally —
 don't add it to Vercel's deployment environment variables.
@@ -99,7 +106,7 @@ src/
 │   ├── EditComparisonSection.tsx  # before/after YouTube thumbnails
 │   ├── SectionHeading.tsx   # shared eyebrow + title heading
 │   └── icons.tsx            # TikTok/GitHub icon SVGs
-├── data/                    # videos.ts, editComparisons.ts
+├── data/                    # videos.ts (reads VIDEOS_JSON, generic fallback), editComparisons.ts
 └── lib/                     # config (env-driven), sort helper, YouTube URL helpers, class-merge utility
 public/
 ├── videos/                  # your .mp4 files locally (gitignored — see "Hosting" above)

@@ -37,3 +37,7 @@ next-env.d.ts
 # on disk locally, just untracked.
 /public/videos/
 /public/avatar.jpg
+
+# local-only AI-assistant guidance — public equivalent is DEVELOPMENT.md.
+# Kept on disk locally, never committed.
+/CLAUDE.md

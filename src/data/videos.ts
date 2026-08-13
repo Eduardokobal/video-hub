@@ -5,17 +5,29 @@ export type Video = {
   src: string; // video file URL — hosted on Vercel Blob (see scripts/upload-to-blob.mjs)
 };
 
-export const videos: Video[] = [
+// Generic placeholder shown when VIDEOS_JSON isn't set — keeps this file (and
+// the public repo) free of any specific person's real content by default.
+// Replace by setting VIDEOS_JSON in .env.local / Vercel, not by editing this
+// array directly, or every fork of this template ships your videos.
+const placeholderVideos: Video[] = [
   {
-    id: "7436804153856249143",
-    title: "O dono do bar sempre ganha",
-    publishedAt: "2024-11-13",
-    src: "https://geax0xyq9hp835xe.public.blob.vercel-storage.com/o-dono-do-bar-sempre-ganha.mp4",
-  },
-  {
-    id: "7434272884882672951",
-    title: "O tal do Êmbolo Kante",
-    publishedAt: "2024-11-06",
-    src: "https://geax0xyq9hp835xe.public.blob.vercel-storage.com/o-tal-do-embolo-kante.mp4",
+    id: "0000000000000000000",
+    title: "Vídeo de exemplo — configure VIDEOS_JSON com o seu conteúdo",
+    publishedAt: "2026-01-01",
+    src: "",
   },
 ];
+
+function parseVideosFromEnv(): Video[] | null {
+  const raw = process.env.VIDEOS_JSON;
+  if (!raw) return null;
+  try {
+    const parsed: unknown = JSON.parse(raw);
+    if (Array.isArray(parsed)) return parsed as Video[];
+  } catch {
+    console.warn("VIDEOS_JSON is set but isn't valid JSON — using placeholder videos.");
+  }
+  return null;
+}
+
+export const videos: Video[] = parseVideosFromEnv() ?? placeholderVideos;

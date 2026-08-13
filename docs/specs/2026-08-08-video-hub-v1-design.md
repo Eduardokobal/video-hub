@@ -175,3 +175,29 @@ on cards, mobile-responsive header, SVG favicon (a circle+"H" mark).
 - Confirmed via full git history search: `.env.local` was never committed in
   any commit, and no identity data (name/handle/bio) leaked into source or
   docs outside of it.
+
+**Repo made public + media moved to Vercel Blob + `videos.ts` genericized
+(2026-08-13):** three related changes, all in service of the repo being a
+genuinely reusable public template, not just "no identity leaks":
+- `public/videos/*.mp4` and `public/avatar.jpg` moved off git entirely onto
+  Vercel Blob (public access), referenced via `AVATAR_URL`/`VIDEOS_JSON` env
+  vars — superseding the "repo is private, media stays committed" decision
+  above. `scripts/upload-to-blob.mjs` handles the upload.
+- Git history was rewritten with `git-filter-repo` to purge those files from
+  every past commit too (not just going forward), verified clean both
+  locally and via GitHub's API, before the repo's visibility was flipped to
+  public.
+- `src/data/videos.ts`'s hardcoded real video list (title/ID/URL — content,
+  not identity data, so it wasn't originally treated as something needing
+  the `.env.local` treatment) was reconsidered: even non-identity content
+  being hardcoded meant every fork of the "generic" template would ship the
+  original owner's specific videos by default. `videos.ts` now reads
+  `VIDEOS_JSON` (a JSON-array env var) with a single generic placeholder
+  entry as the fallback.
+- Added an MIT `LICENSE` — a public repo without one doesn't actually grant
+  reuse permission, undermining the "whitelabel template" framing.
+- `CLAUDE.md` was untracked from git (kept locally, gitignored) in favor of
+  a public `DEVELOPMENT.md` with the same content reframed as generic
+  contributor docs rather than AI-assistant-specific guidance — for a public
+  template, the original spec's architecture tree that listed `CLAUDE.md` as
+  a committed file no longer applies.
